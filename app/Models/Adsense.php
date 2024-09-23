@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Adsense extends Model
 {
-    use HasFactory;
+	use HasFactory, HasUlids;
+
+	protected $fillable = [
+		'domain',
+		'email',
+		'password',
+		'status'
+	];
 }
