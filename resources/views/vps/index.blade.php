@@ -32,7 +32,7 @@
                   <th scope="col">Provider</th>
                   <th scope="col">Email</th>
                   <th scope="col">IP Address</th>
-                  <th scope="col">CPU - RAM</th>
+                  <th scope="col">CPU (Core) RAM (GB)</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -40,17 +40,17 @@
                 @foreach ($vpss as $vps)
                   <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $vps->provider }}</td>
+                    <td>{{ $vps->provider?->name }}</td>
                     <td>{{ $vps->email }}</td>
                     <td>{{ $vps->ip }}</td>
-                    <td>{{ $vps->cpu }} Core - {{ $vps->ram }} GB</td>
+                    <td>{{ $vps->cpu }} - {{ $vps->ram }}</td>
                     <td class="d-flex align-items-center gap-2">
                       <a href="{{ route('vps.edit', $vps) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit"></i>
                       </a>
                       <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $vps->vps_id }}"
                         data-bs-toggle="modal" data-bs-target="#primary-header-modal">
-												<i class="fas fa-trash"></i>
+                        <i class="fas fa-trash"></i>
                       </button>
                     </td>
                   </tr>

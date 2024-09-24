@@ -11,7 +11,7 @@
           <x-create-form :action="route('vps.update', $vps)">
             @csrf
             @method('PUT')
-            <x-input-label :label="'Provider'" name="provider" :type="'select'" :placeholder="'Pilih provider'" :value="$vps->provider" :options="$providerOptions" />
+            <x-input-label :label="'Provider'" name="provider_id" :type="'select'" :placeholder="'Pilih provider'" :value="$vps->provider_id" :options="$providers" :field="'name'" />
             <x-input-label :label="'Email'" name="email" :type="'email'" :placeholder="'example@gmail.com'" :value="$vps->email" />
             <x-input-label :label="'New Password (opsional)'" name="new_password" :type="'password'" :placeholder="'******'" />
             <x-input-label :label="'IP Address'" name="ip" :placeholder="'192.168.0.**'" :value="$vps->ip" :col="'4'" />

@@ -27,7 +27,7 @@
           {{-- <x-error-handling /> --}}
           <x-create-form :action="route('vps.store')">
             @csrf
-            <x-input-label :label="'Provider'" name="provider" :type="'select'" :placeholder="'Pilih provider'" :options="$providerOptions" />
+            <x-input-label :label="'Provider'" name="provider_id" :type="'select'" :placeholder="'Pilih provider'" :options="$providers" :field="'name'" />
             <x-input-label :label="'Email'" name="email" :type="'email'" :placeholder="'example@gmail.com'" :value="old('email')" />
             <x-input-label :label="'Password'" name="password" :type="'password'" :placeholder="'******'" :value="old('password')" />
             <x-input-label :label="'IP Address'" name="ip" :placeholder="'192.168.0.**'" :value="old('ip')" :col="'4'" />

@@ -6,6 +6,7 @@ use Throwable;
 use App\Models\Vps;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Provider;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,15 +20,15 @@ class VpsController extends Controller
 
 	public function create()
 	{
-		$providerOptions = Vps::getProviderOption();
-		return view('vps.create', compact('providerOptions'));
+		$providers = Provider::get(['id', 'name']);
+		return view('vps.create', compact('providers'));
 	}
 
 	public function store(Request $request)
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'provider' => 'required',
+				'provider_id' => 'required|in:' . implode(',', Provider::pluck('id')->toArray()),
 				'email' => 'required|email',
 				'password' => 'required',
 				'ip' => 'required|ip',
@@ -38,8 +39,9 @@ class VpsController extends Controller
 				'email' => ':attribute harus valid email',
 				'integer' => ':attribute harus angka',
 				'ip' => ':attribute harus valid ip',
+				'in' => ':attribute tidak valid',
 			], [
-				'provider' => 'Provider',
+				'provider_id' => 'Provider',
 				'email' => 'Email',
 				'password' => 'Password',
 				'ip' => 'IP Address',
@@ -52,7 +54,7 @@ class VpsController extends Controller
 			}
 
 			$vps = new Vps();
-			$vps->provider = $request->provider;
+			$vps->provider_id = $request->provider_id;
 			$vps->email = $request->email;
 			$vps->password = Hash::make($request->password);
 			$vps->ip = $request->ip;
@@ -65,32 +67,32 @@ class VpsController extends Controller
 		}
 	}
 
-	public function show(string $vps_id)
+	public function show(string $id)
 	{
 		try {
-			$vps = Vps::where('vps_id', $vps_id)->firstOrFail();
+			$vps = Vps::findOrFail($id);
 			return view('vps.show', compact('vps'));
 		} catch (Throwable $e) {
-			abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function edit(string $vps_id)
+	public function edit(string $id)
 	{
 		try {
-			$providerOptions = Vps::getProviderOption();
-			$vps = Vps::where('vps_id', $vps_id)->firstOrFail();
-			return view('vps.edit', compact('vps', 'providerOptions'));
+			$vps = Vps::findOrFail($id);
+			$providers = Provider::get(['id', 'name']);
+			return view('vps.edit', compact('vps', 'providers'));
 		} catch (Throwable $e) {
-			abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function update(Request $request, string $vps_id)
+	public function update(Request $request, string $id)
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'provider' => 'required',
+				'provider_id' => 'required|in:' . implode(',', Provider::pluck('id')->toArray()),
 				'email' => 'required|email',
 				'ip' => 'required|ip',
 				'cpu' => 'required|integer|min:1|max:20',
@@ -102,8 +104,9 @@ class VpsController extends Controller
 				'ip' => ':attribute harus valid ip',
 				'min' => ':attribute minimal :min',
 				'max' => ':attribute maksimal :max',
+				'in' => ':attribute tidak valid',
 			], [
-				'provider' => 'Provider',
+				'provider_id' => 'Provider',
 				'email' => 'Email',
 				'password' => 'Password',
 				'ip' => 'IP Address',
@@ -115,8 +118,8 @@ class VpsController extends Controller
 				return back()->withErrors($validated)->withInput();
 			}
 
-			$vps = Vps::where('vps_id', $vps_id)->firstOrFail();
-			$vps->provider = $request->provider;
+			$vps = Vps::findOrFail($id);
+			$vps->provider_id = $request->provider_id;
 			$vps->email = $request->email;
 			$vps->ip = $request->ip;
 			$vps->cpu = $request->cpu;
@@ -133,10 +136,10 @@ class VpsController extends Controller
 		}
 	}
 
-	public function destroy(string $vps_id)
+	public function destroy(string $id)
 	{
 		try {
-			$vps = Vps::where('vps_id', $vps_id)->firstOrFail();
+			$vps = Vps::findOrFail($id);
 			$vps->delete();
 			return redirect()->route('vps.index')->with('success', 'Data VPS berhasil dihapus');
 		} catch (Throwable $e) {

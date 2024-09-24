@@ -82,8 +82,8 @@ class DomainController extends Controller
 	public function edit(string $id)
 	{
 		try {
-			$providers = Provider::get(['id', 'name']);
 			$domain = Domain::findOrFail($id);
+			$providers = Provider::get(['id', 'name']);
 			return view('domain.edit', compact('domain', 'providers'));
 		} catch (Throwable $e) {
 			return back()->withErrors($e->getMessage());
