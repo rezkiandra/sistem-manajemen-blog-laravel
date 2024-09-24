@@ -18,27 +18,12 @@ Route::middleware(['web'])->group(function () {
 });
 
 Route::middleware(['web'])->group(function () {
-	Route::prefix('admin/blog')->group(function () {
+	Route::prefix('admin')->group(function () {
 		Route::resource('blog', BlogController::class);
-	});
-
-	Route::prefix('admin/adsense')->group(function () {
 		Route::resource('adsense', AdsenseController::class);
-	});
-
-	Route::prefix('admin/domain')->group(function () {
 		Route::resource('domain', DomainController::class);
-	});
-
-	Route::prefix('admin/vps')->group(function () {
 		Route::resource('vps', VpsController::class);
-	});
-
-	Route::prefix('admin/provider')->group(function () {
 		Route::resource('provider', ProviderController::class);
-	});
-
-	Route::prefix('admin/topic')->group(function () {
 		Route::resource('topic', TopicController::class);
 	});
 });
