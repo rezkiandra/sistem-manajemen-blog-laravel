@@ -25,12 +25,13 @@ class ProviderController extends Controller
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'name' => 'required|string|min:4|max:100',
+				'name' => 'required|string|min:4|max:100|unique:providers,name',
 			], [
 				'required' => ':attribute harus diisi',
 				'string' => ':attribute harus string',
 				'min' => ':attribute minimal :min karakter',
 				'max' => ':attribute maksimal :max karakter',
+				'unique' => ':attribute sudah ada',
 			], [
 				'name' => 'Provider',
 			]);
@@ -48,36 +49,37 @@ class ProviderController extends Controller
 		}
 	}
 
-	public function show(string $provider_id)
+	public function show(string $id)
 	{
 		try {
-			$provider = Provider::where('provider_id', $provider_id)->firstOrFail();
+			$provider = Provider::findOrFail($id);
 			return view('provider.show', compact('provider'));
 		} catch (Throwable $e) {
-			return abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function edit(string $provider_id)
+	public function edit(string $id)
 	{
 		try {
-			$provider = Provider::where('provider_id', $provider_id)->firstOrFail();
+			$provider = Provider::findOrFail($id);
 			return view('provider.edit', compact('provider'));
 		} catch (Throwable $e) {
-			return abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function update(Request $request, string $provider_id)
+	public function update(Request $request, string $id)
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'name' => 'required|string|min:4|max:100',
+				'name' => 'required|string|min:4|max:100|unique:providers,name,' . $id,
 			], [
 				'required' => ':attribute harus diisi',
 				'string' => ':attribute harus string',
 				'min' => ':attribute minimal :min karakter',
 				'max' => ':attribute maksimal :max karakter',
+				'unique' => ':attribute sudah ada',
 			], [
 				'name' => 'Provider',
 			]);
@@ -86,7 +88,7 @@ class ProviderController extends Controller
 				return back()->withErrors($validated)->withInput();
 			}
 
-			$provider = Provider::where('provider_id', $provider_id)->firstOrFail();
+			$provider = Provider::findOrFail($id);
 			$provider->name = $request->name;
 			$provider->update();
 			return redirect()->route('provider.index')->with('success', 'Provider ' . $provider->name . ' berhasil diupdate');
@@ -95,14 +97,14 @@ class ProviderController extends Controller
 		}
 	}
 
-	public function destroy(string $provider_id)
+	public function destroy(string $id)
 	{
 		try {
-			$provider = Provider::where('provider_id', $provider_id)->firstOrFail();
+			$provider = Provider::findOrFail($id);
 			$provider->delete();
 			return redirect()->route('provider.index')->with('success', 'Provider ' . $provider->name . ' berhasil dihapus');
 		} catch (Throwable $e) {
-			return abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 }

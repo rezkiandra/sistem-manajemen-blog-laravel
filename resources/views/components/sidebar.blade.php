@@ -3,8 +3,9 @@
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
         <x-sidebar-item :title="__('Dashboard')" :route="route('dashboard')" :icon="'fas fa-tachometer-alt'" />
+        <x-sidebar-item :title="__('Data Utama')" :route="route('dashboard')" :icon="'fab fa-blogger'" />
 
-        <x-divider>{{ __('Data Utama') }}</x-divider>
+        <x-divider>{{ __('Data Blog') }}</x-divider>
         <x-sidebar-dropdown :title="__('Adsense')" :icon="'fab fa-google'" :active="request()->routeIs('adsense.*')">
           <x-dropdown-item :title="__('Tambah')" :route="route('adsense.create')" />
           <x-dropdown-item :title="__('List')" :route="route('adsense.index')" />

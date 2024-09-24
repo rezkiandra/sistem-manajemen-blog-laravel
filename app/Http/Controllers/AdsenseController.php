@@ -29,13 +29,14 @@ class AdsenseController extends Controller
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'domain' => 'required|url',
-				'email'	=> 'required|email',
+				'domain' => 'required|url|unique:adsenses,domain',
+				'email'	=> 'required|email|unique:adsenses,email',
 				'password' => 'required',
 				'status' => 'required|in:PIN PO,PIN,Fresh,Kosong'
 			], [
 				'required'	=> ':attribute harus diisi',
 				'domain.url' => 'Domain tidak valid',
+				'unique' => ':attribute sudah ada',
 				'email.email' => 'Email tidak valid',
 				'status.in' => 'Status tidak valid'
 			], [
@@ -86,12 +87,13 @@ class AdsenseController extends Controller
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'domain' => 'required|url',
-				'email' => 'required|email',
+				'domain' => 'required|url|unique:adsenses,domain,' . $id,
+				'email' => 'required|email|unique:adsenses,email,' . $id,
 				'status' => 'required|in:PIN PO,PIN,Fresh,Kosong'
 			], [
 				'required' => ':attribute harus diisi',
 				'domain.url' => 'Domain tidak valid',
+				'unique' => ':attribute sudah ada',
 				'email.email' => 'Email tidak valid',
 				'status.in' => 'Status tidak valid'
 			], [

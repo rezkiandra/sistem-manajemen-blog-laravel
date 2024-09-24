@@ -25,12 +25,13 @@ class TopicController extends Controller
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'name' => 'required|string|min:4|max:100',
+				'name' => 'required|string|min:4|max:100|unique:topics,name',
 			], [
 				'required' => ':attribute harus diisi',
 				'string' => ':attribute harus string',
 				'min' => ':attribute minimal :min karakter',
 				'max' => ':attribute maksimal :max karakter',
+				'unique' => ':attribute sudah ada',
 			], [
 				'name' => 'Topik',
 			]);
@@ -48,36 +49,37 @@ class TopicController extends Controller
 		}
 	}
 
-	public function show(string $topic_id)
+	public function show(string $id)
 	{
 		try {
-			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			$topic = Topic::findOrFail($id);
 			return view('topic.show', compact('topic'));
 		} catch (Throwable $e) {
-			return abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function edit(string $topic_id)
+	public function edit(string $id)
 	{
 		try {
-			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			$topic = Topic::findOrFail($id);
 			return view('topic.edit', compact('topic'));
 		} catch (Throwable $e) {
-			return abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function update(Request $request, string $topic_id)
+	public function update(Request $request, string $id)
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'name' => 'required|string|min:4|max:100',
+				'name' => 'required|string|min:4|max:100|unique:topics,name,' . $id,
 			], [
 				'required' => ':attribute harus diisi',
 				'string' => ':attribute harus string',
 				'min' => ':attribute minimal :min karakter',
 				'max' => ':attribute maksimal :max karakter',
+				'unique' => ':attribute sudah ada',
 			], [
 				'name' => 'Topic',
 			]);
@@ -86,7 +88,7 @@ class TopicController extends Controller
 				return back()->withErrors($validated)->withInput();
 			}
 
-			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			$topic = Topic::findOrFail($id);
 			$topic->name = $request->name;
 			$topic->update();
 			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil diupdate');
@@ -95,14 +97,14 @@ class TopicController extends Controller
 		}
 	}
 
-	public function destroy(string $topic_id)
+	public function destroy(string $id)
 	{
 		try {
-			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			$topic = Topic::findOrFail($id);
 			$topic->delete();
 			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil dihapus');
 		} catch (Throwable $e) {
-			return abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 }

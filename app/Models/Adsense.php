@@ -34,10 +34,10 @@ class Adsense extends Model
 	protected function getOptionStatus()
 	{
 		return [
-			'PIN PO' => 'PIN PO',
-			'PIN' => 'PIN',
-			'Fresh' => 'Fresh',
-			'Kosong' => 'Kosong',
+			['PIN PO' => 'PIN PO'],
+			['PIN' => 'PIN'],
+			['Fresh' => 'Fresh'],
+			['Kosong' => 'Kosong']
 		];
 	}
 }

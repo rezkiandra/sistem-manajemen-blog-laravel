@@ -19,10 +19,19 @@
         @if (!$value)
           <option selected disabled>{{ $placeholder }}</option>
         @endif
+
         @foreach ($options as $option)
-          <option value="{{ $option->id }}" {{ old($name, $value) == $option->id ? 'selected' : '' }}>
-            {{ $option?->{$field} }}
-          </option>
+          @if (is_array($option))
+            @foreach ($option as $key => $label)
+              <option value="{{ $key }}" {{ old($name, $value) == $key ? 'selected' : '' }}>
+                {{ $label }}
+              </option>
+            @endforeach
+          @elseif(is_object($option))
+            <option value="{{ $option->id }}" {{ old($name, $value) == $option->id ? 'selected' : '' }}>
+              {{ $option?->{$field} }}
+            </option>
+          @endif
         @endforeach
       </select>
       @error($name)

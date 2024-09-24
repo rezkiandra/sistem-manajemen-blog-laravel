@@ -44,8 +44,8 @@
                     <td>{{ $adsense->status }}</td>
                     <td class="d-flex align-items-center gap-2">
                       <a href="{{ route('adsense.edit', $adsense) }}" class="btn btn-sm btn-primary">
-												<i class="fas fa-edit"></i>
-											</a>
+                        <i class="fas fa-edit"></i>
+                      </a>
                       <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $adsense->ads_id }}"
                         data-bs-toggle="modal" data-bs-target="#primary-header-modal">
                         <i class="fas fa-trash"></i>

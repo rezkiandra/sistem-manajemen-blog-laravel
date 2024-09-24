@@ -42,9 +42,8 @@
                       <a href="{{ route('topic.edit', $topic) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <button type="button" class="btn btn-sm btn-danger delete-btn"
-                        data-id="{{ $topic->topic_id }}" data-bs-toggle="modal"
-                        data-bs-target="#primary-header-modal">
+                      <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $topic->id }}"
+                        data-bs-toggle="modal" data-bs-target="#primary-header-modal">
                         <i class="fas fa-trash"></i>
                       </button>
                     </td>
