@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Throwable;
 use App\Models\Adsense;
+use App\Models\Provider;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -60,28 +61,28 @@ class AdsenseController extends Controller
 		}
 	}
 
-	public function show(string $ads_id)
+	public function show(string $id)
 	{
 		try {
-			$adsense = Adsense::where('ads_id', $ads_id)->firstOrFail();
+			$adsense = Adsense::findOrFail($id);
 			return view('adsense.show', compact('adsense'));
 		} catch (Throwable $e) {
-			abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function edit(string $ads_id)
+	public function edit(string $id)
 	{
 		try {
-			$optionStatus = Adsense::getOptionStatus();
-			$adsense = Adsense::where('ads_id', $ads_id)->firstOrFail();
-			return view('adsense.edit', compact('adsense', 'optionStatus'));
+			$providers = Provider::get(['id', 'name']);
+			$adsense = Adsense::findOrFail($id);
+			return view('adsense.edit', compact('adsense', 'providers'));
 		} catch (Throwable $e) {
-			abort(404);
+			return back()->withErrors($e->getMessage());
 		}
 	}
 
-	public function update(Request $request, string $ads_id)
+	public function update(Request $request, string $id)
 	{
 		try {
 			$validated = Validator::make($request->all(), [
@@ -103,7 +104,7 @@ class AdsenseController extends Controller
 				return back()->withErrors($validated)->withInput();
 			}
 
-			$adsense = Adsense::where('ads_id', $ads_id)->firstOrFail();
+			$adsense = Adsense::findOrFail($id);
 			$adsense->domain = $request->domain;
 			$adsense->email = $request->email;
 			$adsense->status = $request->status;
@@ -120,14 +121,14 @@ class AdsenseController extends Controller
 		}
 	}
 
-	public function destroy(string $ads_id)
+	public function destroy(string $id)
 	{
 		try {
-			$adsense = Adsense::where('ads_id', $ads_id)->firstOrFail();
+			$adsense = Adsense::findOrFail($id);
 			$adsense->delete();
 			return redirect()->route('adsense.index')->with('success', 'Data adsense berhasil dihapus');
 		} catch (Throwable $e) {
-			return back()->withErrors($e->getMessage())->withInput();
+			return back()->withErrors($e->getMessage());
 		}
 	}
 }

@@ -17,11 +17,11 @@
       <label class="form-label">{{ $label }}</label>
       <select name="{{ $name }}" id="{{ $name }}" class="form-select">
         @if (!$value)
-          <option selected disabled value="">{{ $placeholder }}</option>
+          <option selected disabled>{{ $placeholder }}</option>
         @endif
-        @foreach ($options as $key => $option)
-          <option value="{{ $key }}" {{ old($name, $value) == $key ? 'selected' : '' }}>
-            {{ $option }}
+        @foreach ($options as $option)
+          <option value="{{ $option->id }}" {{ old($name, $value) == $option->id ? 'selected' : '' }}>
+            {{ $option?->{$field} }}
           </option>
         @endforeach
       </select>

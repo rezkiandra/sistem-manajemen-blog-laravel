@@ -41,7 +41,7 @@
                   <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $domain->domain }}</td>
-                    <td>{{ $domain->provider }}</td>
+                    <td>{{ $domain->provider?->name }}</td>
                     <td>{{ $domain->email }}</td>
                     <td>
                       @php

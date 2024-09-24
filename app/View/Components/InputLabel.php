@@ -8,11 +8,11 @@ use Illuminate\View\Component;
 
 class InputLabel extends Component
 {
-	public $label, $name, $type, $placeholder, $options, $value, $min, $max, $col;
+	public $label, $name, $type, $placeholder, $options, $value, $min, $max, $col, $field;
 	/**
 	 * Create a new component instance.
 	 */
-	public function __construct($label, $name, $type = 'text', $placeholder = null, $options = [], $value = null, $min = 0, $max = null, $col = 12)
+	public function __construct($label, $name, $type = 'text', $placeholder = null, $options = [], $value = null, $min = 0, $max = null, $col = 12, $field = null)
 	{
 		$this->label = $label;
 		$this->name = $name;
@@ -23,6 +23,7 @@ class InputLabel extends Component
 		$this->min = $min;
 		$this->max = $max;
 		$this->col = $col;
+		$this->field = $field;
 	}
 
 	/**
