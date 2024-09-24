@@ -12,8 +12,7 @@ return new class extends Migration
 	public function up(): void
 	{
 		Schema::create('vps', function (Blueprint $table) {
-			$table->ulid('vps_id')->primary();
-			$table->string('provider', 100)->nullable();
+			$table->ulid('id')->primary();
 			$table->string('email', 100)->nullable();
 			$table->string('password', 100)->nullable();
 			$table->string('ip', 45)->nullable();

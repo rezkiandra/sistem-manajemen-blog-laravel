@@ -11,12 +11,10 @@ class Adsense extends Model
 {
 	use HasFactory, HasUlids;
 
-	protected $primaryKey = 'ads_id';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'ads_id',
 		'domain',
 		'email',
 		'password',

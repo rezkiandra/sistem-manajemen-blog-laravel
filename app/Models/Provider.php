@@ -11,12 +11,10 @@ class Provider extends Model
 {
 	use HasFactory, HasUlids;
 
-	protected $primaryKey = 'provider_id';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'provider_id',
 		'name',
 	];
 
@@ -28,5 +26,15 @@ class Provider extends Model
 				$model->setAttribute($model->getKeyName(), Str::ulid());
 			}
 		});
+	}
+
+	public function domain()
+	{
+		return $this->hasOne(Domain::class, 'provider_id', 'id');
+	}
+
+	public function vps()
+	{
+		return $this->hasOne(Vps::class, 'provider_id', 'id');
 	}
 }

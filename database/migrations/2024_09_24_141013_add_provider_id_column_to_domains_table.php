@@ -11,10 +11,8 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
-		Schema::create('providers', function (Blueprint $table) {
-			$table->ulid('id')->primary();
-			$table->string('name', '100')->nullable();
-			$table->timestamps();
+		Schema::table('domains', function (Blueprint $table) {
+			$table->foreignUlid('provider_id')->nullable()->after('domain')->constrained()->cascadeOnDelete();
 		});
 	}
 
@@ -23,6 +21,9 @@ return new class extends Migration
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('providers');
+		Schema::table('domains', function (Blueprint $table) {
+			$table->dropForeign(['provider_id']);
+			$table->dropColumn('provider_id');
+		});
 	}
 };

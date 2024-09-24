@@ -12,9 +12,8 @@ return new class extends Migration
 	public function up(): void
 	{
 		Schema::create('domains', function (Blueprint $table) {
-			$table->ulid('domain_id')->primary();
+			$table->ulid('id')->primary();
 			$table->string('domain', 100)->nullable();
-			$table->string('provider', 100)->nullable();
 			$table->string('email', 100)->nullable();
 			$table->string('password')->nullable();
 			$table->integer('masa_aktif')->nullable();

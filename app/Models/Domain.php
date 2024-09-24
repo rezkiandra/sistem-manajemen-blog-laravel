@@ -11,14 +11,12 @@ class Domain extends Model
 {
 	use HasFactory;
 
-	protected $primaryKey = 'domain_id';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'domain_id',
 		'domain',
-		'provider',
+		'provider_id',
 		'email',
 		'password',
 		'masa_aktif',
@@ -35,12 +33,8 @@ class Domain extends Model
 		});
 	}
 
-	protected function getProviderOption()
+	public function provider()
 	{
-		return [
-			'Telkomsel' => 'Telkomsel',
-			'Google' => 'Google',
-			'Indosat' => 'Indosat'
-		];
+		return $this->belongsTo(Provider::class, 'provider_id');
 	}
 }

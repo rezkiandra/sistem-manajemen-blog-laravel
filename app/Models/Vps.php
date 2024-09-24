@@ -10,13 +10,11 @@ class Vps extends Model
 {
 	use HasFactory;
 
-	protected $primaryKey = 'vps_id';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'vps_id',
-		'provider',
+		'provider_id',
 		'email',
 		'password',
 		'ip',
@@ -34,12 +32,8 @@ class Vps extends Model
 		});
 	}
 
-	protected function getProviderOption()
+	public function provider()
 	{
-		return [
-			'Telkomsel' => 'Telkomsel',
-			'Google' => 'Google',
-			'Indosat' => 'Indosat'
-		];
+		return $this->belongsTo(Provider::class, 'provider_id');
 	}
 }

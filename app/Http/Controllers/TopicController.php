@@ -2,9 +2,107 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
+use App\Models\Topic;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class TopicController extends Controller
 {
-    //
+	public function index()
+	{
+		$topics = Topic::all();
+		return view('topic.index', compact('topics'));
+	}
+
+	public function create()
+	{
+		return view('topic.create');
+	}
+
+	public function store(Request $request)
+	{
+		try {
+			$validated = Validator::make($request->all(), [
+				'name' => 'required|string|min:4|max:100',
+			], [
+				'required' => ':attribute harus diisi',
+				'string' => ':attribute harus string',
+				'min' => ':attribute minimal :min karakter',
+				'max' => ':attribute maksimal :max karakter',
+			], [
+				'name' => 'Topik',
+			]);
+
+			if ($validated->fails()) {
+				return back()->withErrors($validated)->withInput();
+			}
+
+			$topic = new Topic();
+			$topic->name = $request->name;
+			$topic->save();
+			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil ditambahkan');
+		} catch (Throwable $e) {
+			return back()->withErrors($validated)->withInput();
+		}
+	}
+
+	public function show(string $topic_id)
+	{
+		try {
+			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			return view('topic.show', compact('topic'));
+		} catch (Throwable $e) {
+			return abort(404);
+		}
+	}
+
+	public function edit(string $topic_id)
+	{
+		try {
+			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			return view('topic.edit', compact('topic'));
+		} catch (Throwable $e) {
+			return abort(404);
+		}
+	}
+
+	public function update(Request $request, string $topic_id)
+	{
+		try {
+			$validated = Validator::make($request->all(), [
+				'name' => 'required|string|min:4|max:100',
+			], [
+				'required' => ':attribute harus diisi',
+				'string' => ':attribute harus string',
+				'min' => ':attribute minimal :min karakter',
+				'max' => ':attribute maksimal :max karakter',
+			], [
+				'name' => 'Topic',
+			]);
+
+			if ($validated->fails()) {
+				return back()->withErrors($validated)->withInput();
+			}
+
+			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			$topic->name = $request->name;
+			$topic->update();
+			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil diupdate');
+		} catch (Throwable $e) {
+			return back()->withErrors($validated)->withInput();
+		}
+	}
+
+	public function destroy(string $topic_id)
+	{
+		try {
+			$topic = Topic::where('topic_id', $topic_id)->firstOrFail();
+			$topic->delete();
+			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil dihapus');
+		} catch (Throwable $e) {
+			return abort(404);
+		}
+	}
 }

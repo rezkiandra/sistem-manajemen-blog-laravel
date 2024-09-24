@@ -12,7 +12,7 @@ return new class extends Migration
 	public function up(): void
 	{
 		Schema::create('adsenses', function (Blueprint $table) {
-			$table->ulid('ads_id')->primary();
+			$table->ulid('id')->primary();
 			$table->string('domain', 100)->nullable();
 			$table->string('email', 100)->nullable();
 			$table->string('password')->nullable();

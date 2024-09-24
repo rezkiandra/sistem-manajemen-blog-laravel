@@ -31,7 +31,7 @@ class AdsenseController extends Controller
 				'domain' => 'required|url',
 				'email'	=> 'required|email',
 				'password' => 'required',
-				'status' => 'required|in:pin po,pin,fresh,kosong'
+				'status' => 'required|in:PIN PO,PIN,Fresh,Kosong'
 			], [
 				'required'	=> ':attribute harus diisi',
 				'domain.url' => 'Domain tidak valid',
@@ -87,7 +87,7 @@ class AdsenseController extends Controller
 			$validated = Validator::make($request->all(), [
 				'domain' => 'required|url',
 				'email' => 'required|email',
-				'status' => 'required|in:pin po,pin,fresh,kosong',
+				'status' => 'required|in:PIN PO,PIN,Fresh,Kosong'
 			], [
 				'required' => ':attribute harus diisi',
 				'domain.url' => 'Domain tidak valid',

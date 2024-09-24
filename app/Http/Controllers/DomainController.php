@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Throwable;
 use Carbon\Carbon;
 use App\Models\Domain;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -20,8 +21,8 @@ class DomainController extends Controller
 
 	public function create()
 	{
-		$providerOptions = Domain::getProviderOption();
-		return view('domain.create', compact('providerOptions'));
+		$providers = Provider::get('id', 'name');
+		return view('domain.create', compact('providers'));
 	}
 
 	public function store(Request $request)
