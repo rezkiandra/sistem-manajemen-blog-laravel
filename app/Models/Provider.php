@@ -7,20 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Adsense extends Model
+class Provider extends Model
 {
 	use HasFactory, HasUlids;
 
-	protected $primaryKey = 'ads_id';
+	protected $primaryKey = 'provider_id';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'ads_id',
-		'domain',
-		'email',
-		'password',
-		'status'
+		'provider_id',
+		'name',
 	];
 
 	protected static function boot()
@@ -31,15 +28,5 @@ class Adsense extends Model
 				$model->setAttribute($model->getKeyName(), Str::ulid());
 			}
 		});
-	}
-
-	protected function getOptionStatus()
-	{
-		return [
-			'PIN PO' => 'PIN PO',
-			'PIN' => 'PIN',
-			'Fresh' => 'Fresh',
-			'Kosong' => 'Kosong',
-		];
 	}
 }

@@ -4,23 +4,24 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Adsense extends Model
+class Vps extends Model
 {
-	use HasFactory, HasUlids;
+	use HasFactory;
 
-	protected $primaryKey = 'ads_id';
+	protected $primaryKey = 'vps_id';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'ads_id',
-		'domain',
+		'vps_id',
+		'provider',
 		'email',
 		'password',
-		'status'
+		'ip',
+		'cpu',
+		'ram'
 	];
 
 	protected static function boot()
@@ -33,13 +34,12 @@ class Adsense extends Model
 		});
 	}
 
-	protected function getOptionStatus()
+	protected function getProviderOption()
 	{
 		return [
-			'PIN PO' => 'PIN PO',
-			'PIN' => 'PIN',
-			'Fresh' => 'Fresh',
-			'Kosong' => 'Kosong',
+			'Telkomsel' => 'Telkomsel',
+			'Google' => 'Google',
+			'Indosat' => 'Indosat'
 		];
 	}
 }
