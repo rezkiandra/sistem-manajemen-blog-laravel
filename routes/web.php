@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdsenseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\VpsController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,5 +45,25 @@ Route::middleware(['web'])->group(function () {
 		Route::get('/edit/{vps}', 'edit')->name('vps.edit');
 		Route::put('/update/{vps}', 'update')->name('vps.update');
 		Route::delete('/destroy/{vps}', 'destroy')->name('vps.destroy');
+	});
+
+	Route::controller(ProviderController::class)->prefix('admin/provider')->group(function () {
+		Route::get('/', 'index')->name('provider.index');
+		Route::get('/create', 'create')->name('provider.create');
+		Route::post('/store', 'store')->name('provider.store');
+		Route::get('/show/{provider}', 'show')->name('provider.show');
+		Route::get('/edit/{provider}', 'edit')->name('provider.edit');
+		Route::put('/update/{provider}', 'update')->name('provider.update');
+		Route::delete('/destroy/{provider}', 'destroy')->name('provider.destroy');
+	});
+
+	Route::controller(TopicController::class)->prefix('admin/topic')->group(function () {
+		Route::get('/', 'index')->name('topic.index');
+		Route::get('/create', 'create')->name('topic.create');
+		Route::post('/store', 'store')->name('topic.store');
+		Route::get('/show/{topic}', 'show')->name('topic.show');
+		Route::get('/edit/{topic}', 'edit')->name('topic.edit');
+		Route::put('/update/{topic}', 'update')->name('topic.update');
+		Route::delete('/destroy/{topic}', 'destroy')->name('topic.destroy');
 	});
 });
