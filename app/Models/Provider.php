@@ -37,4 +37,14 @@ class Provider extends Model
 	{
 		return $this->hasOne(Vps::class, 'provider_id', 'id');
 	}
+
+	public function blog()
+	{
+		return $this->hasOne(Blog::class, 'provider_id', 'id');
+	}
+
+	public function topic()
+	{
+		return $this->hasOne(Topic::class, 'provider_id', 'id');
+	}
 }
