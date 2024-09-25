@@ -5,7 +5,10 @@
         <x-sidebar-item :title="__('Dashboard')" :route="route('dashboard')" :icon="'fas fa-tachometer-alt'" />
 
 				<x-divider>{{ __('Data Utama') }}</x-divider>
-        <x-sidebar-item :title="__('Blog')" :route="route('dashboard')" :icon="'fab fa-blogger'" />
+        <x-sidebar-dropdown :title="__('Blog')" :icon="'fab fa-blogger'" :active="request()->routeIs('blog.*')">
+          <x-dropdown-item :title="__('Tambah')" :route="route('blog.create')" />
+          <x-dropdown-item :title="__('List')" :route="route('blog.index')" />
+        </x-sidebar-dropdown>
 
         <x-divider>{{ __('Data Lainnya') }}</x-divider>
         <x-sidebar-dropdown :title="__('Adsense')" :icon="'fab fa-google'" :active="request()->routeIs('adsense.*')">
