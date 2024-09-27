@@ -40,7 +40,9 @@
                 @foreach ($domains as $domain)
                   <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $domain->domain }}</td>
+                    <td>
+                      <a href="{{ $domain->domain }}" class="text-decoration-underline">{{ $domain->domain }}</a>
+                    </td>
                     <td>{{ $domain->provider?->name }}</td>
                     <td>{{ $domain->email }}</td>
                     <td>
@@ -50,7 +52,7 @@
                       @if ($daysLeft == 1)
                         {{ 'Akan kadaluarsa besok' }}
                       @elseif ($daysLeft > 1)
-                        {{ $daysLeft . ' hari' }}
+                        {{ 'tersisa ' . $daysLeft . ' hari' }}
                       @elseif ($daysLeft == 0)
                         {{ 'Kadaluarsa hari ini' }}
                       @elseif ($daysLeft < 0)
@@ -59,9 +61,9 @@
                     </td>
                     <td class="d-flex align-items-center gap-2">
                       <a href="{{ route('domain.edit', $domain) }}" class="btn btn-sm btn-primary">
-												<i class="fas fa-edit"></i>
-											</a>
-                      <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $domain->domain_id }}"
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $domain->id }}"
                         data-bs-toggle="modal" data-bs-target="#primary-header-modal">
                         <i class="fas fa-trash"></i>
                       </button>

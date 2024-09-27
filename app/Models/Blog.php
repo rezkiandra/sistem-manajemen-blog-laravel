@@ -21,7 +21,7 @@ class Blog extends Model
 		'ip',
 		'provider_id',
 		'topic_id',
-		'traffic',
+		'traffic_views',
 		'status',
 		'domain_authority',
 		'domain_rating',
@@ -49,11 +49,16 @@ class Blog extends Model
 		return $this->belongsTo(Topic::class);
 	}
 
+	public function keyword()
+	{
+		return $this->hasMany(Keyword::class);
+	}
+
 	protected function getLanguages()
 	{
 		return [
-			['indonesia' => 'Indonesia'],
-			['inggris' => 'Inggris'],
+			['Indonesia' => 'Indonesia'],
+			['Inggris' => 'Inggris'],
 		];
 	}
 }

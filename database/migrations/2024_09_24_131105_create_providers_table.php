@@ -13,7 +13,7 @@ return new class extends Migration
 	{
 		Schema::create('providers', function (Blueprint $table) {
 			$table->ulid('id')->primary();
-			$table->string('name', '100')->nullable();
+			$table->string('name', 100)->nullable();
 			$table->timestamps();
 		});
 	}

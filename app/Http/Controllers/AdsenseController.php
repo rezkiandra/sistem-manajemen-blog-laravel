@@ -21,22 +21,23 @@ class AdsenseController extends Controller
 
 	public function create()
 	{
-		$optionStatus = Adsense::getOptionStatus();
-		return view('adsense.create', compact('optionStatus'));
+		$status = Adsense::getOptionStatus();
+		return view('adsense.create', compact('status'));
 	}
 
 	public function store(Request $request)
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'domain' => 'required|url|unique:adsenses,domain',
-				'email'	=> 'required|email|unique:adsenses,email',
+				'domain' => 'required|url|unique:adsenses,domain|max:100',
+				'email'	=> 'required|email|unique:adsenses,email|max:100',
 				'password' => 'required',
 				'status' => 'required|in:PIN PO,PIN,Fresh,Kosong'
 			], [
 				'required'	=> ':attribute harus diisi',
 				'domain.url' => 'Domain tidak valid',
 				'unique' => ':attribute sudah ada',
+				'max' => ':attribute tidak boleh lebih dari :max karakter',
 				'email.email' => 'Email tidak valid',
 				'status.in' => 'Status tidak valid'
 			], [
@@ -75,9 +76,10 @@ class AdsenseController extends Controller
 	public function edit(string $id)
 	{
 		try {
-			$providers = Provider::get(['id', 'name']);
 			$adsense = Adsense::findOrFail($id);
-			return view('adsense.edit', compact('adsense', 'providers'));
+			$status = Adsense::getOptionStatus();
+			$providers = Provider::get(['id', 'name']);
+			return view('adsense.edit', compact('adsense', 'status', 'providers'));
 		} catch (Throwable $e) {
 			return back()->withErrors($e->getMessage());
 		}
@@ -87,13 +89,14 @@ class AdsenseController extends Controller
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'domain' => 'required|url|unique:adsenses,domain,' . $id,
-				'email' => 'required|email|unique:adsenses,email,' . $id,
+				'domain' => 'required|url|max:100|unique:adsenses,domain,' . $id,
+				'email' => 'required|email|max:100|unique:adsenses,email,' . $id,
 				'status' => 'required|in:PIN PO,PIN,Fresh,Kosong'
 			], [
 				'required' => ':attribute harus diisi',
 				'domain.url' => 'Domain tidak valid',
 				'unique' => ':attribute sudah ada',
+				'max' => ':attribute tidak boleh lebih dari :max karakter',
 				'email.email' => 'Email tidak valid',
 				'status.in' => 'Status tidak valid'
 			], [

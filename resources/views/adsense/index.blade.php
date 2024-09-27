@@ -39,14 +39,16 @@
                 @foreach ($adsenses as $adsense)
                   <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $adsense->domain }}</td>
+                    <td>
+											<a href="{{ $adsense->domain }}" class="text-decoration-underline">{{ $adsense->domain }}</a>
+										</td>
                     <td>{{ $adsense->email }}</td>
                     <td>{{ $adsense->status }}</td>
                     <td class="d-flex align-items-center gap-2">
                       <a href="{{ route('adsense.edit', $adsense) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $adsense->ads_id }}"
+                      <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $adsense->id }}"
                         data-bs-toggle="modal" data-bs-target="#primary-header-modal">
                         <i class="fas fa-trash"></i>
                       </button>

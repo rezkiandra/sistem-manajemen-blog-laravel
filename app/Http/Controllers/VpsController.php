@@ -29,15 +29,16 @@ class VpsController extends Controller
 		try {
 			$validated = Validator::make($request->all(), [
 				'provider_id' => 'required|in:' . implode(',', Provider::pluck('id')->toArray()),
-				'email' => 'required|email|unique:vps,email',
-				'password' => 'required',
-				'ip' => 'required|ip|unique:vps,ip',
+				'email' => 'required|email|unique:vps,email|max:100',
+				'password' => 'required|max:100',
+				'ip' => 'required|ip|unique:vps,ip|max:45',
 				'cpu' => 'required|integer',
 				'ram' => 'required|integer',
 			], [
 				'required' => ':attribute harus diisi',
 				'email' => ':attribute harus valid email',
 				'unique' => ':attribute sudah ada',
+				'max' => ':attribute maksimal :max',
 				'integer' => ':attribute harus angka',
 				'ip' => ':attribute harus valid ip',
 				'in' => ':attribute tidak valid',
@@ -94,14 +95,15 @@ class VpsController extends Controller
 		try {
 			$validated = Validator::make($request->all(), [
 				'provider_id' => 'required|in:' . implode(',', Provider::pluck('id')->toArray()),
-				'email' => 'required|email|unique:vps,email,' . $id,
-				'ip' => 'required|ip|unique:vps,ip,' . $id,
+				'email' => 'required|email|max:100|unique:vps,email,' . $id,
+				'ip' => 'required|ip|max:45|unique:vps,ip,' . $id,
 				'cpu' => 'required|integer|min:1|max:20',
 				'ram' => 'required|integer|min:1|max:50',
 			], [
 				'required' => ':attribute harus diisi',
 				'email' => ':attribute harus valid email',
 				'unique' => ':attribute sudah ada',
+				'max' => ':attribute maksimal :max',
 				'integer' => ':attribute harus angka',
 				'ip' => ':attribute harus valid ip',
 				'min' => ':attribute minimal :min',

@@ -27,4 +27,9 @@ class Topic extends Model
 			}
 		});
 	}
+
+	public function blog()
+	{
+		return $this->hasOne(Blog::class, 'topic_id', 'id');
+	}
 }

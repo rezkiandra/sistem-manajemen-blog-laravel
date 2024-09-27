@@ -30,15 +30,16 @@ class DomainController extends Controller
 		// dd($request->all());
 		try {
 			$validated = Validator::make($request->all(), [
-				'domain' => 'required|url|unique:domains,domain',
+				'domain' => 'required|url|unique:domains,domain|max:100',
 				'provider_id' => 'required|in:' . implode(',', Provider::pluck('id')->toArray()),
-				'email' => 'required|email|unique:domains,email',
+				'email' => 'required|email|unique:domains,email|max:100',
 				'password' => 'required',
 				'masa_aktif' => 'required|integer|min:1',
 			], [
 				'required' => ':attribute harus diisi',
 				'url' => ':attribute harus valid',
 				'unique' => ':attribute sudah ada',
+				'max' => ':attribute maksimal :max karakter',
 				'email' => ':attribute harus valid',
 				'integer' => ':attribute harus angka',
 				'min' => ':attribute minimal harus :min',
@@ -95,14 +96,15 @@ class DomainController extends Controller
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'domain' => 'required|url|unique:domains,domain,' . $id,
+				'domain' => 'required|url|max:100|unique:domains,domain,' . $id,
 				'provider_id' => 'required|in:' . implode(',', Provider::pluck('id')->toArray()),
-				'email' => 'required|email|unique:domains,email,' . $id,
+				'email' => 'required|email|max:100|unique:domains,email,' . $id,
 				'masa_aktif' => 'required|integer|min:1',
 			], [
 				'required' => ':attribute harus diisi',
 				'url' => ':attribute harus valid',
 				'unique' => ':attribute sudah ada',
+				'max' => ':attribute maksimal :max karakter',
 				'email' => ':attribute harus valid',
 				'integer' => ':attribute harus angka',
 				'min' => ':attribute minimal harus :min',

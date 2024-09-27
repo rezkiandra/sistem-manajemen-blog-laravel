@@ -27,7 +27,7 @@
           {{-- <x-error-handling /> --}}
           <x-create-form :action="route('topic.store')">
             @csrf
-            <x-input-label :label="'Nama Topik'" name="name" :placeholder="'Informatika, Kesehatan ...'" :value="old('name')" />
+            <x-input-label :label="'Nama Topik'" :name="'name'" :placeholder="'Informatika, Kesehatan ...'" :value="old('name')" />
           </x-create-form>
         </div>
       </div>

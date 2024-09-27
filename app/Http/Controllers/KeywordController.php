@@ -56,7 +56,7 @@ class KeywordController extends Controller
 	public function show(string $id)
 	{
 		try {
-			$keyword = Keyword::find($id);
+			$keyword = Keyword::findOrFail($id);
 			return view('keyword.show', compact('keyword'));
 		} catch (Throwable $e) {
 			return back()->withErrors($e->getMessage());
@@ -66,7 +66,7 @@ class KeywordController extends Controller
 	public function edit(string $id)
 	{
 		try {
-			$keyword = Keyword::find($id);
+			$keyword = Keyword::findOrFail($id);
 			return view('keyword.edit', compact('keyword'));
 		} catch (Throwable $e) {
 			return back()->withErrors($e->getMessage());
@@ -77,7 +77,7 @@ class KeywordController extends Controller
 	{
 		try {
 			$validated = Validator::make($request->all(), [
-				'name' => 'required|string|min:1|unique:keywords,name' . $id,
+				'name' => 'required|string|min:1|unique:keywords,name,' . $id,
 			], [
 				'required' => ':attribute harus diisi',
 				'string' => ':attribute harus string',
@@ -105,7 +105,7 @@ class KeywordController extends Controller
 	public function destroy(string $id)
 	{
 		try {
-			$keyword = Keyword::find($id);
+			$keyword = Keyword::findOrFail($id);
 			$keyword->delete();
 			return redirect()->back()->with('success', 'Data keyword berhasil dihapus');
 		} catch (Throwable $e) {

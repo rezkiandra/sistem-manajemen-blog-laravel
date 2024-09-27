@@ -48,7 +48,7 @@
                       <a href="{{ route('vps.edit', $vps) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $vps->vps_id }}"
+                      <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ $vps->id }}"
                         data-bs-toggle="modal" data-bs-target="#primary-header-modal">
                         <i class="fas fa-trash"></i>
                       </button>

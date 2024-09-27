@@ -4,7 +4,7 @@
       <ul id="sidebarnav">
         <x-sidebar-item :title="__('Dashboard')" :route="route('dashboard')" :icon="'fas fa-tachometer-alt'" />
 
-				<x-divider>{{ __('Data Utama') }}</x-divider>
+        <x-divider>{{ __('Data Utama') }}</x-divider>
         <x-sidebar-dropdown :title="__('Blog')" :icon="'fab fa-blogger'" :active="request()->routeIs('blog.*')">
           <x-dropdown-item :title="__('Tambah')" :route="route('blog.create')" />
           <x-dropdown-item :title="__('List')" :route="route('blog.index')" />
@@ -32,9 +32,14 @@
           <x-dropdown-item :title="__('List')" :route="route('provider.index')" />
         </x-sidebar-dropdown>
 
-        <x-sidebar-dropdown :title="__('Topic')" :icon="'fas fa-lightbulb'" :active="request()->routeIs('topic.*')">
+        <x-sidebar-dropdown :title="__('Topic')" :icon="'fas fa-comment-alt'" :active="request()->routeIs('topic.*')">
           <x-dropdown-item :title="__('Tambah')" :route="route('topic.create')" />
           <x-dropdown-item :title="__('List')" :route="route('topic.index')" />
+        </x-sidebar-dropdown>
+
+        <x-sidebar-dropdown :title="__('Keyword')" :icon="'fas fa-key'" :active="request()->routeIs('keyword.*')">
+          <x-dropdown-item :title="__('Tambah')" :route="route('keyword.create')" />
+          <x-dropdown-item :title="__('List')" :route="route('keyword.index')" />
         </x-sidebar-dropdown>
     </nav>
   </div>

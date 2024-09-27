@@ -27,11 +27,11 @@
           {{-- <x-error-handling /> --}}
           <x-create-form :action="route('domain.store')">
             @csrf
-            <x-input-label :label="'Domain'" name="domain" :placeholder="'https://domain@example.com'" :value="old('domain')" />
-            <x-input-label :label="'Provider'" name="provider_id" :type="'select'" :placeholder="'Pilih provider'" :options="$providers" :field="'name'" />
-            <x-input-label :label="'Email'" name="email" :type="'email'" :placeholder="'example@gmail.com'" :value="old('email')" />
-            <x-input-label :label="'Password'" name="password" :type="'password'" :placeholder="'******'" :value="old('password')" />
-            <x-input-label :label="'Masa Aktif'" name="masa_aktif" :type="'number'" :placeholder="'30'" :value="old('masa_aktif')" />
+            <x-input-label :label="'Domain'" :name="'domain'" :placeholder="'https://domain@example.com'" :value="old('domain')" />
+            <x-input-label :label="'Provider'" :name="'provider_id'" :type="'select'" :placeholder="'Pilih provider'" :options="$providers" :field="'name'" />
+            <x-input-label :label="'Email'" :name="'email'" :type="'email'" :placeholder="'example@gmail.com'" :value="old('email')" />
+            <x-input-label :label="'Password'" :name="'password'" :type="'password'" :placeholder="'******'" :value="old('password')" />
+            <x-input-label :label="'Masa Aktif'" :name="'masa_aktif'" :type="'number'" :placeholder="'30'" :value="old('masa_aktif')" />
           </x-create-form>
         </div>
       </div>

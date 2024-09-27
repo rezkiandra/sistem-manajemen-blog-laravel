@@ -21,7 +21,7 @@ return new class extends Migration
 			$table->string('status', 100)->nullable();
 			$table->integer('domain_authority')->nullable();
 			$table->integer('domain_rating')->nullable();
-			$table->enum('lang', ['indonesia', 'inggris'])->nullable();
+			$table->enum('lang', ['Indonesia', 'Inggris'])->nullable();
 			$table->string('pic', 100)->nullable();
 			$table->timestamps();
 		});
