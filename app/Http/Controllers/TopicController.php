@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
+use Exception;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -44,7 +44,7 @@ class TopicController extends Controller
 			$topic->name = $request->name;
 			$topic->save();
 			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil ditambahkan');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($validated)->withInput();
 		}
 	}
@@ -54,7 +54,7 @@ class TopicController extends Controller
 		try {
 			$topic = Topic::findOrFail($id);
 			return view('topic.show', compact('topic'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -64,7 +64,7 @@ class TopicController extends Controller
 		try {
 			$topic = Topic::findOrFail($id);
 			return view('topic.edit', compact('topic'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -92,7 +92,7 @@ class TopicController extends Controller
 			$topic->name = $request->name;
 			$topic->update();
 			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil diupdate');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($validated)->withInput();
 		}
 	}
@@ -103,7 +103,7 @@ class TopicController extends Controller
 			$topic = Topic::findOrFail($id);
 			$topic->delete();
 			return redirect()->route('topic.index')->with('success', 'Topik ' . $topic->name . ' berhasil dihapus');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}

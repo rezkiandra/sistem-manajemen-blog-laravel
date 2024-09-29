@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
+use Exception;
 use App\Models\Adsense;
 use App\Models\Provider;
 use Illuminate\Support\Str;
@@ -54,11 +54,11 @@ class AdsenseController extends Controller
 			$adsense = new Adsense();
 			$adsense->domain = $request->domain;
 			$adsense->email = $request->email;
-			$adsense->password = Hash::make($request->password);
+			$adsense->password = $request->password;
 			$adsense->status = $request->status;
 			$adsense->save();
 			return redirect()->route('adsense.index')->with('success', 'Data adsense berhasil ditambahkan');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage())->withInput();
 		}
 	}
@@ -68,7 +68,7 @@ class AdsenseController extends Controller
 		try {
 			$adsense = Adsense::findOrFail($id);
 			return view('adsense.show', compact('adsense'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -80,7 +80,7 @@ class AdsenseController extends Controller
 			$status = Adsense::getOptionStatus();
 			$providers = Provider::get(['id', 'name']);
 			return view('adsense.edit', compact('adsense', 'status', 'providers'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -115,13 +115,13 @@ class AdsenseController extends Controller
 			$adsense->status = $request->status;
 
 			if ($request->new_password) {
-				$adsense->password = Hash::make($request->new_password);
+				$adsense->password = $request->new_password;
 			}
 
 			$adsense->update();
 
 			return redirect()->route('adsense.index')->with('success', 'Data adsense berhasil diupdate');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage())->withInput();
 		}
 	}
@@ -132,7 +132,7 @@ class AdsenseController extends Controller
 			$adsense = Adsense::findOrFail($id);
 			$adsense->delete();
 			return redirect()->route('adsense.index')->with('success', 'Data adsense berhasil dihapus');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}

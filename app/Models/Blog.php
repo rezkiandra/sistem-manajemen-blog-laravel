@@ -48,10 +48,10 @@ class Blog extends Model
 	{
 		return $this->belongsTo(Topic::class);
 	}
-
-	public function keyword()
+	
+	public function blogKeyword()
 	{
-		return $this->hasMany(Keyword::class);
+		return $this->hasMany(BlogKeyword::class);
 	}
 
 	protected function getLanguages()

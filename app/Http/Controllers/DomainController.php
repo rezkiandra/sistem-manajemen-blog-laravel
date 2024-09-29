@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
+use Exception;
 use Carbon\Carbon;
 use App\Models\Domain;
 use App\Models\Provider;
@@ -60,13 +60,13 @@ class DomainController extends Controller
 			$domain->domain = $request->domain;
 			$domain->provider_id = $request->provider_id;
 			$domain->email = $request->email;
-			$domain->password = Hash::make($request->password);
+			$domain->password = $request->password;
 			$domain->masa_aktif = $request->masa_aktif;
 			$domain->expired_at = Carbon::now()->addDay((int)$request->masa_aktif);
 
 			$domain->save();
 			return redirect()->route('domain.index')->with('success', 'Data domain berhasil ditambahkan');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage())->withInput();
 		}
 	}
@@ -76,7 +76,7 @@ class DomainController extends Controller
 		try {
 			$domain = Domain::findOrFail($id);
 			return view('domain.show', compact('domain'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -87,7 +87,7 @@ class DomainController extends Controller
 			$domain = Domain::findOrFail($id);
 			$providers = Provider::get(['id', 'name']);
 			return view('domain.edit', compact('domain', 'providers'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -129,12 +129,12 @@ class DomainController extends Controller
 			$domain->expired_at = Carbon::now()->addDay((int)$request->masa_aktif);
 
 			if ($request->new_password) {
-				$domain->password = Hash::make($request->new_password);
+				$domain->password = $request->new_password;
 			}
 
 			$domain->update();
 			return redirect()->route('domain.index')->with('success', 'Data domain berhasil diupdate');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage())->withInput();
 		}
 	}
@@ -145,7 +145,7 @@ class DomainController extends Controller
 			$domain = Domain::findOrFail($id);
 			$domain->delete();
 			return redirect()->route('domain.index')->with('success', 'Data domain berhasil dihapus');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}

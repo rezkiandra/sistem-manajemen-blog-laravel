@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
+use Exception;
 use App\Models\Keyword;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -48,7 +48,7 @@ class KeywordController extends Controller
 			$keyword->save();
 
 			return redirect()->route('keyword.index')->with('success', 'Data keyword berhasil ditambahkan');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->with('error', $e->getMessage());
 		}
 	}
@@ -58,7 +58,7 @@ class KeywordController extends Controller
 		try {
 			$keyword = Keyword::findOrFail($id);
 			return view('keyword.show', compact('keyword'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -68,7 +68,7 @@ class KeywordController extends Controller
 		try {
 			$keyword = Keyword::findOrFail($id);
 			return view('keyword.edit', compact('keyword'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -97,7 +97,7 @@ class KeywordController extends Controller
 			$keyword->update();
 
 			return redirect()->route('keyword.index')->with('success', 'Data keyword berhasil diupdate');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->with('error', $e->getMessage());
 		}
 	}
@@ -108,7 +108,7 @@ class KeywordController extends Controller
 			$keyword = Keyword::findOrFail($id);
 			$keyword->delete();
 			return redirect()->back()->with('success', 'Data keyword berhasil dihapus');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->with('error', $e->getMessage());
 		}
 	}

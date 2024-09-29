@@ -44,7 +44,13 @@
                       <a href="{{ $domain->domain }}" class="text-decoration-underline">{{ $domain->domain }}</a>
                     </td>
                     <td>{{ $domain->provider?->name }}</td>
-                    <td>{{ $domain->email }}</td>
+                    <td>
+                      <div class="d-flex flex-column align-items-start">
+                        <span>{{ $domain->email }}</span>
+                        <small class="cursor-pointer text-muted">Lihat password</small>
+                        <small class="see-password d-none">{{ $domain->password }}</small>
+                      </div>
+                    </td>
                     <td>
                       @php
                         $daysLeft = \Carbon\Carbon::now()->diffInDays($domain->expired_at, false);
@@ -59,7 +65,7 @@
                         {{ 'Kadaluarsa ' . abs($daysLeft) . ' hari yg lalu' }}
                       @endif
                     </td>
-                    <td class="d-flex align-items-center gap-2">
+                    <td class="d-flex flex-column align-items-start gap-2">
                       <a href="{{ route('domain.edit', $domain) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit"></i>
                       </a>
@@ -83,6 +89,11 @@
 
 @push('css')
   <link rel="stylesheet" href="{{ asset('src/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <style>
+    .cursor-pointer {
+      cursor: pointer;
+    }
+  </style>
 @endpush
 
 @push('js')
@@ -100,7 +111,7 @@
     $(document).ready(function() {
       $('.delete-btn').on('click', function() {
         var id = $(this).data('id');
-        var formAction = "{{ route('adsense.destroy', ':id') }}";
+        var formAction = "{{ route('domain.destroy', ':id') }}";
         formAction = formAction.replace(':id', id);
 
         $('#deleteForm').attr('action', formAction);
@@ -117,5 +128,18 @@
         }).show();
       });
     });
+  </script>
+
+  <script>
+    const seePassword = document.querySelectorAll('.cursor-pointer');
+    const isPassword = document.querySelectorAll('.see-password');
+
+    seePassword.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        seePassword[index].textContent === 'Lihat password' ? seePassword[index].textContent =
+          'Sembunyikan password' : seePassword[index].textContent = 'Lihat password';
+        isPassword[index].classList.toggle('d-none');
+      })
+    })
   </script>
 @endpush

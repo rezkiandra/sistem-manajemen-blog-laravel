@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
+use Exception;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -44,7 +44,7 @@ class ProviderController extends Controller
 			$provider->name = $request->name;
 			$provider->save();
 			return redirect()->route('provider.index')->with('success', 'Provider ' . $provider->name . ' berhasil ditambahkan');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($validated)->withInput();
 		}
 	}
@@ -54,7 +54,7 @@ class ProviderController extends Controller
 		try {
 			$provider = Provider::findOrFail($id);
 			return view('provider.show', compact('provider'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -64,7 +64,7 @@ class ProviderController extends Controller
 		try {
 			$provider = Provider::findOrFail($id);
 			return view('provider.edit', compact('provider'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -92,7 +92,7 @@ class ProviderController extends Controller
 			$provider->name = $request->name;
 			$provider->update();
 			return redirect()->route('provider.index')->with('success', 'Provider ' . $provider->name . ' berhasil diupdate');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($validated)->withInput();
 		}
 	}
@@ -103,7 +103,7 @@ class ProviderController extends Controller
 			$provider = Provider::findOrFail($id);
 			$provider->delete();
 			return redirect()->route('provider.index')->with('success', 'Provider ' . $provider->name . ' berhasil dihapus');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}

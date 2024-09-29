@@ -30,7 +30,7 @@
             <x-input-label :label="'Domain'" :name="'domain'" :placeholder="'https://domain@example.com'" :value="old('domain')" />
             <x-input-label :label="'Email'" :name="'email'" :type="'email'" :placeholder="'example@gmail.com'" :value="old('email')" />
             <x-input-label :label="'Password'" :name="'password'" :type="'password'" :placeholder="'******'" :value="old('password')" />
-            <x-input-label :label="'Status'" :name="'status'" :type="'select'" :placeholder="'Pilih status'" :options="$optionStatus" />
+            <x-input-label :label="'Status'" :name="'status'" :type="'select'" :placeholder="'Pilih status'" :options="$status" />
           </x-create-form>
         </div>
       </div>

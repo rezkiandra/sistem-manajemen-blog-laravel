@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
+use Exception;
 use App\Models\Blog;
 use App\Models\Topic;
 use App\Models\Provider;
@@ -16,7 +16,7 @@ class BlogController extends Controller
 {
 	public function index()
 	{
-		$blogs = Blog::with('keyword')->get();
+		$blogs = Blog::all();
 		return view('blog.index', compact('blogs'));
 	}
 
@@ -83,7 +83,7 @@ class BlogController extends Controller
 			$blog->pic = $request->pic;
 			$blog->save();
 			return redirect()->route('blog.index')->with('success', 'Data blog berhasil ditambahkan');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->withErrors($e->getMessage());
 		}
 	}
@@ -93,7 +93,7 @@ class BlogController extends Controller
 		try {
 			$blog = Blog::findOrFail($id);
 			return view('blog.show', compact('blog'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->withErrors($e->getMessage());
 		}
 	}
@@ -107,7 +107,7 @@ class BlogController extends Controller
 			$topics = Topic::get(['id', 'name']);
 			$providers = Provider::get(['id', 'name']);
 			return view('blog.edit', compact('blog', 'languages', 'status', 'topics', 'providers'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->withErrors($e->getMessage());
 		}
 	}
@@ -166,7 +166,7 @@ class BlogController extends Controller
 			$blog->pic = $request->pic;
 			$blog->update();
 			return redirect()->route('blog.index')->with('success', 'Data blog berhasil diupdate');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->withErrors($e->getMessage());
 		}
 	}
@@ -177,7 +177,7 @@ class BlogController extends Controller
 			$blog = Blog::findOrFail($id);
 			$blog->delete();
 			return redirect()->route('blog.index')->with('success', 'Data blog berhasil dihapus');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->withErrors($e->getMessage());
 		}
 	}

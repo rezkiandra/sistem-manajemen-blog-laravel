@@ -30,7 +30,7 @@
             @method('PUT')
             <x-input-label :label="'Domain'" :name="'domain'" :placeholder="'https://domain@example.com'" :value="$adsense->domain" />
             <x-input-label :label="'Email'" :name="'email'" :type="'email'" :placeholder="'example@gmail.com'" :value="$adsense->email" />
-						<x-input-label :label="'New Password (opsional)'" :name="'new_password'" :type="'password'" :placeholder="'******'" />
+						<x-input-label :label="'Password'" :name="'new_password'" :type="'password'" :placeholder="'******'" :value="$adsense->password"/>
             <x-input-label :label="'Status'" :name="'status'" :type="'select'" :placeholder="'Pilih status'" :value="$adsense->status" :options="$status" />
           </x-create-form>
         </div>

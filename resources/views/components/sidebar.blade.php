@@ -10,6 +10,11 @@
           <x-dropdown-item :title="__('List')" :route="route('blog.index')" />
         </x-sidebar-dropdown>
 
+        <x-sidebar-dropdown :title="__('Blog Keyword')" :icon="'fas fa-key'" :active="request()->routeIs('blog-keyword.*')">
+          <x-dropdown-item :title="__('Tambah')" :route="route('blog-keyword.create')" />
+          <x-dropdown-item :title="__('List')" :route="route('blog-keyword.index')" />
+        </x-sidebar-dropdown>
+
         <x-divider>{{ __('Data Lainnya') }}</x-divider>
         <x-sidebar-dropdown :title="__('Adsense')" :icon="'fab fa-google'" :active="request()->routeIs('adsense.*')">
           <x-dropdown-item :title="__('Tambah')" :route="route('adsense.create')" />
@@ -37,7 +42,7 @@
           <x-dropdown-item :title="__('List')" :route="route('topic.index')" />
         </x-sidebar-dropdown>
 
-        <x-sidebar-dropdown :title="__('Keyword')" :icon="'fas fa-key'" :active="request()->routeIs('keyword.*')">
+        <x-sidebar-dropdown :title="__('Keyword')" :icon="'fas fa-tag'" :active="request()->routeIs('keyword.*')">
           <x-dropdown-item :title="__('Tambah')" :route="route('keyword.create')" />
           <x-dropdown-item :title="__('List')" :route="route('keyword.index')" />
         </x-sidebar-dropdown>

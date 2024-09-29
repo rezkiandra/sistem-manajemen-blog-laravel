@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
+use Exception;
 use App\Models\Vps;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -58,13 +58,13 @@ class VpsController extends Controller
 			$vps = new Vps();
 			$vps->provider_id = $request->provider_id;
 			$vps->email = $request->email;
-			$vps->password = Hash::make($request->password);
+			$vps->password = $request->password;
 			$vps->ip = $request->ip;
 			$vps->cpu = $request->cpu;
 			$vps->ram = $request->ram;
 			$vps->save();
 			return redirect()->route('vps.index')->with('success', 'Data VPS berhasil ditambahkan');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->with('error', $e->getMessage());
 		}
 	}
@@ -74,7 +74,7 @@ class VpsController extends Controller
 		try {
 			$vps = Vps::findOrFail($id);
 			return view('vps.show', compact('vps'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -85,7 +85,7 @@ class VpsController extends Controller
 			$vps = Vps::findOrFail($id);
 			$providers = Provider::get(['id', 'name']);
 			return view('vps.edit', compact('vps', 'providers'));
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage());
 		}
 	}
@@ -130,12 +130,12 @@ class VpsController extends Controller
 			$vps->ram = $request->ram;
 
 			if ($request->new_password) {
-				$vps->password = Hash::make($request->new_password);
+				$vps->password = $request->new_password;
 			}
 
 			$vps->update();
 			return redirect()->route('vps.index')->with('success', 'Data VPS berhasil diupdate');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return redirect()->back()->with('error', $e->getMessage());
 		}
 	}
@@ -146,7 +146,7 @@ class VpsController extends Controller
 			$vps = Vps::findOrFail($id);
 			$vps->delete();
 			return redirect()->route('vps.index')->with('success', 'Data VPS berhasil dihapus');
-		} catch (Throwable $e) {
+		} catch (Exception $e) {
 			return back()->withErrors($e->getMessage())->withInput();
 		}
 	}

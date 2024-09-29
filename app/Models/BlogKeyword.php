@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Keyword extends Model
+class BlogKeyword extends Model
 {
 	use HasFactory, HasUlids;
 
@@ -15,8 +15,8 @@ class Keyword extends Model
 	public $incrementing = false;
 
 	protected $fillable = [
-		'name',
-		'slug',
+		'blog_id',
+		'keyword'
 	];
 
 	protected static function boot()
@@ -32,5 +32,10 @@ class Keyword extends Model
 	public function blog()
 	{
 		return $this->belongsTo(Blog::class);
+	}
+
+	public function keyword()
+	{
+		return $this->belongsToMany(Keyword::class);
 	}
 }

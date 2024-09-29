@@ -40,11 +40,17 @@
                   <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
-											<a href="{{ $adsense->domain }}" class="text-decoration-underline">{{ $adsense->domain }}</a>
-										</td>
-                    <td>{{ $adsense->email }}</td>
+                      <a href="{{ $adsense->domain }}" class="text-decoration-underline">{{ $adsense->domain }}</a>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-column align-items-start">
+                        <span>{{ $adsense->email }}</span>
+                        <small class="cursor-pointer text-muted">Lihat password</small>
+                        <small class="see-password d-none">{{ $adsense->password }}</small>
+                      </div>
+                    </td>
                     <td>{{ $adsense->status }}</td>
-                    <td class="d-flex align-items-center gap-2">
+                    <td class="d-flex flex-column align-items-start gap-2">
                       <a href="{{ route('adsense.edit', $adsense) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit"></i>
                       </a>
@@ -68,6 +74,11 @@
 
 @push('css')
   <link rel="stylesheet" href="{{ asset('src/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <style>
+    .cursor-pointer {
+      cursor: pointer;
+    }
+  </style>
 @endpush
 
 @push('js')
@@ -102,5 +113,18 @@
         }).show();
       });
     });
+  </script>
+
+  <script>
+    const seePassword = document.querySelectorAll('.cursor-pointer');
+    const isPassword = document.querySelectorAll('.see-password');
+
+    seePassword.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        seePassword[index].textContent === 'Lihat password' ? seePassword[index].textContent =
+          'Sembunyikan password' : seePassword[index].textContent = 'Lihat password';
+        isPassword[index].classList.toggle('d-none');
+      })
+    })
   </script>
 @endpush
