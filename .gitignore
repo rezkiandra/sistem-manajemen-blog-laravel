@@ -1,6 +1,6 @@
 /.phpunit.cache
 /node_modules
-/database/migrations/*.php
+database/migrations/*.php
 /public/build
 /public/hot
 /public/storage
