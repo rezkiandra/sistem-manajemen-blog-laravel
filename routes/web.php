@@ -33,6 +33,10 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::controller(DashboardController::class)->group(function () {
 			Route::get('/', 'index')->name('dashboard');
+			Route::get('/profile/{user}', 'profile')->name('dashboard.profile');
+			Route::put('/profile/{user}', 'updateProfile')->name('dashboard.profile.update');
+			Route::get('change-password/{user}', 'changePassword')->name('dashboard.change-password');
+			Route::put('change-password/{user}', 'updatePassword')->name('dashboard.update-password');
 		});
 	});
 });

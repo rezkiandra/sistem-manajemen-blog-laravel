@@ -1,8 +1,8 @@
 <header class="topbar" data-navbarbg="skin6">
   <nav class="navbar top-navbar navbar-expand-lg">
     <div class="navbar-header" data-logobg="skin6">
-      <a class="nav-toggler waves-effect waves-light d-block d-lg-none" href="javascript:void(0)"><i
-          class="ti-menu ti-close"></i>
+      <a class="nav-toggler waves-effect waves-light d-block d-lg-none" href="javascript:void(0)">
+        <i class="ti-close ti-menu"></i>
       </a>
       <div class="navbar-brand">
         <a href="{{ route('dashboard') }}">
@@ -26,13 +26,17 @@
             aria-expanded="false">
             <i class="fas fa-user"></i>
             <span class="ms-2 d-none d-lg-inline-block">Hello,</span>
-            <span class="text-dark">Administrator</span>
+            <span class="text-dark">{{ Auth::user()->name }}</span>
             <i data-feather="chevron-down" class="svg-icon"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
-            <a class="dropdown-item" href="javascript:void(0)">
+            <a class="dropdown-item" href="{{ route('dashboard.profile', Auth::user()->id) }}">
               <i data-feather="settings" class="svg-icon me-2 ms-1"></i>
-              Account Setting
+              Profile Admin
+            </a>
+            <a class="dropdown-item" href="{{ route('dashboard.change-password', Auth::user()->id) }}">
+              <i data-feather="key" class="svg-icon me-2 ms-1"></i>
+              Ganti Password?
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}">

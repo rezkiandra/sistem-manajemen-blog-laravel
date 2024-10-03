@@ -1,5 +1,6 @@
 <aside class="left-sidebar" data-sidebarbg="skin6">
-  <div class="scroll-sidebar" data-sidebarbg="skin6">
+  <div class="scroll-sidebar ps-container ps-theme-default ps-active-y" data-sidebarbg="skin6"
+    data-ps-id="e614cc24-1955-f343-5e40-aa740f2a3028">
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
         <x-sidebar-item :title="__('Dashboard')" :route="route('dashboard')" :icon="'fas fa-tachometer-alt'" />

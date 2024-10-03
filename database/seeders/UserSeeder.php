@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,11 +15,6 @@ class UserSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$user = new User();
-		$user = $user->create([
-			'name' => 'admin',
-			'email' => 'admin@localhost.com',
-			'password' => Hash::make('laravel')
-		]);
+		//
 	}
 }
