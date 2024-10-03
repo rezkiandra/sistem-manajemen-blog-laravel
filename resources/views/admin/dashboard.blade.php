@@ -5,7 +5,23 @@
   <div class="page-breadcrumb">
     <div class="row">
       <div class="col-12 align-self-center">
-        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ __('SIMANBLOG') }}</h4>
+        @if (\Illuminate\Support\Carbon::now()->format('h') < 12)
+          <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning,
+            <span class="text-capitalize">{{ Auth::user()->name }}</span>!
+          </h4>
+        @elseif (\Illuminate\Support\Carbon::now()->format('h') < 18 && \Illuminate\Support\Carbon::now()->format('h') > 12)
+          <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Afternoon,
+            <span class="text-capitalize">{{ Auth::user()->name }}</span>!
+          </h4>
+        @elseif (\Illuminate\Support\Carbon::now()->format('h') > 18 && \Illuminate\Support\Carbon::now()->format('h') < 24)
+          <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Evening,
+            <span class="text-capitalize">{{ Auth::user()->name }}</span>!
+          </h4>
+        @else
+          <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Night,
+            <span class="text-capitalize">{{ Auth::user()->name }}</span>!
+          </h4>
+        @endif
         <div class="d-flex align-items-center">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-0">
